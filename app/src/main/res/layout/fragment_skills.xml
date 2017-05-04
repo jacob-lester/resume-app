@@ -5,7 +5,6 @@
     tools:context="com.lester.jacob.lester_resume.Fragments.SettingsFragment"
     android:id="@+id/skills_fragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

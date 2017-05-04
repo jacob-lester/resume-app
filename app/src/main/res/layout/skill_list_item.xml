@@ -1,0 +1,55 @@
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:id="@+id/swipeLayout">
+
+    <!-- Bottom View Start-->
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="160dp"
+        android:orientation="horizontal"
+        android:layout_height="80dp"
+        android:padding="0dp"
+        android:layout_gravity="fill">
+
+        <!--What you want to show-->
+        <ImageButton
+            android:layout_width="80dp"
+            android:id="@+id/editSkillBtn"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_pencil"
+            android:layout_margin="0dp"
+            android:background="#ffe100"/>
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:id="@+id/deleteSkillBtn"
+            android:src="@drawable/ic_trash"
+            android:layout_margin="0dp"
+            android:background="#FF2A1A" />
+
+    </LinearLayout>
+    <!-- Bottom View End-->
+
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="25dp">
+
+        <!--What you want to show in SurfaceView-->
+
+        <TextView
+            android:id="@+id/skillName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/skill_name"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>
