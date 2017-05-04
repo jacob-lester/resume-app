@@ -1,0 +1,19 @@
+[
+  {
+    "skill": "Java/Android",
+    "details": "I have been developing with Java over the last 3 years at NKU, where Java is the main language taught. I have made programs like an interactive calender GUI, Proxy server with replacement policies (LRU, MRU, LFU, RR), as well as a client-server Tic-Tac-Toe game. Also I have proficiency with Android SDK"
+  },
+  {
+    "skill": "C/C++",
+    "details": "I have proficiency with C and C++, mainly through schooling at NKU. Featured programs include a small hospital triage with CLI and GUI, a solution to the famous bin-packing problem, and even work with Assembly language"
+  },
+  {
+    "skill": "Ruby",
+    "details": "I recently started teaching myself Ruby on Rails with some small projects. My software engineering course at NKU required this framework for creating a question and answer forum for NKU students to ask for guidance from their peers and faculty alike regarding specific course material"
+  },
+  {
+    "skill": "Web Development",
+    "details": "Over the past year or so I have made websites for clients (particularly with Wordpress CMS). I have knowledge of HTML, CSS/SASS, Javascript, PHP, Ruby on Rails, and major Adobe products such as Photoshop, Illustrator, and Dreamweaver."
+  }
+
+]
