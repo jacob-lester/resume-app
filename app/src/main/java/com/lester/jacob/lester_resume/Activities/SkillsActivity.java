@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lester.jacob.lester_resume.Classes.Skill;
+import com.lester.jacob.lester_resume.Classes.SkillDB;
+import com.lester.jacob.lester_resume.Fragments.AddSkillFragment;
+import com.lester.jacob.lester_resume.Fragments.EditSkillFragment;
 import com.lester.jacob.lester_resume.Fragments.SkillDetailFragment;
 import com.lester.jacob.lester_resume.Fragments.SkillsFragment;
 import com.lester.jacob.lester_resume.R;
@@ -16,17 +19,21 @@ import com.lester.jacob.lester_resume.R;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
-public class SkillsActivity extends BaseActivity implements SkillsFragment.SkillsInteractionListener, SkillDetailFragment.SkillDetailInteractionListener {
+public class SkillsActivity extends BaseActivity implements SkillsFragment.SkillsInteractionListener,
+        SkillDetailFragment.SkillDetailInteractionListener, EditSkillFragment.EditSkillInteractionListener,
+        AddSkillFragment.AddSkillInteractionListener {
 
     private static List<Skill> skills;
+    private SkillDB db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skills);
 
+        db = new SkillDB(this);
         Gson gson = new Gson();
         String jsonOutput = jsonToStringFromAssetFolder(this);
         Type listType = new TypeToken<List<Skill>>(){}.getType();
@@ -50,7 +57,7 @@ public class SkillsActivity extends BaseActivity implements SkillsFragment.Skill
     }
 
     @Override
-    public void onSkillSelected(int position) {
+    public void onSkillSelected(int id) {
         // The user selected a skill from  the SkillsFragment
         SkillDetailFragment detailFrag = (SkillDetailFragment) getSupportFragmentManager().findFragmentById(R.id.skill_detail_fragment);
 
@@ -58,7 +65,7 @@ public class SkillsActivity extends BaseActivity implements SkillsFragment.Skill
             // If SkillDetail frag is available, we're in two-pane layout...
 
             // Call a method in the SkillDetailFragment to update its content
-            detailFrag.updateSkillDetailView(skills.get(position).getDetails());
+            detailFrag.updateSkillDetailView(db.getSkill(id).getDesc());
         } else {
             // Otherwise, we're in the one-pane layout and must swap frags...
 
@@ -69,7 +76,7 @@ public class SkillsActivity extends BaseActivity implements SkillsFragment.Skill
 
             // TODO pass in skill details here
 
-            args.putString(SkillDetailFragment.ARG_DETAILS, skills.get(position).getDetails());
+            args.putString(SkillDetailFragment.ARG_DETAILS, db.getSkill(id).getDesc());
 
             newFragment.setArguments(args);
 
@@ -83,6 +90,19 @@ public class SkillsActivity extends BaseActivity implements SkillsFragment.Skill
             // Commit the transaction
             transaction.commit();
         }
+    }
+
+    @Override
+    public void addSkill() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.skills_container, new AddSkillFragment()).commit();
+    }
+
+
+    @Override
+    public void updateSkill() {
+        SkillsFragment skillsFragment = new SkillsFragment();
+        skillsFragment.setArguments(getIntent().getExtras());
+        getSupportFragmentManager().beginTransaction().replace(R.id.skills_container, skillsFragment).commit();
     }
 
     public static String jsonToStringFromAssetFolder(Context context) {
@@ -102,4 +122,8 @@ public class SkillsActivity extends BaseActivity implements SkillsFragment.Skill
         return new String(data);
     }
 
+    @Override
+    public void saveSkill() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.skills_container, new SkillsFragment()).commit();
+    }
 }

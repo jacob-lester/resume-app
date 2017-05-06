@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/add_skill_fragment"
+    android:orientation="vertical"
+    tools:context="com.lester.jacob.lester_resume.Fragments.EditSkillFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_a_skill"
+        android:textAlignment="center"
+        android:paddingTop="20dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:paddingTop="10dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="45dp"
+        android:paddingBottom="15dp"
+        android:textSize="18sp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/skill_name_edit_text"
+        android:text="New Skill" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:paddingTop="10dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="45dp"
+        android:paddingBottom="15dp"
+        android:textSize="18sp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/skill_detail_edit_text"
+        android:text="@string/short_description_of_skill" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_skill_btn"
+        android:text="@string/save_skill"/>
+
+</LinearLayout>
+

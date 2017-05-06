@@ -16,5 +16,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="view_skills">View Skills</string>
     <string name="skill_name">Skill Name</string>
+    <string name="update_skill">Update Skill</string>
+    <string name="skills">SKILLS</string>
+    <string name="skills_subhead">Swipe a skill for options (edit/delete). Click a skill to view its details</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="add_a_skill">ADD A SKILL</string>
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="save_skill">Save</string>
+    <string name="short_description_of_skill">Short description of skill</string>
+    <string name="edit_skill">EDIT SKILL</string>
 
 </resources>

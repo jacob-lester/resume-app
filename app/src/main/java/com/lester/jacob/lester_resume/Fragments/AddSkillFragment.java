@@ -2,29 +2,27 @@ package com.lester.jacob.lester_resume.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.daimajia.swipe.util.Attributes;
-import com.lester.jacob.lester_resume.Adapters.SkillAdapter;
 import com.lester.jacob.lester_resume.Classes.Skill;
+import com.lester.jacob.lester_resume.Classes.SkillDB;
 import com.lester.jacob.lester_resume.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SkillsInteractionListener} interface
+ * {@link AddSkillInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SkillsFragment#newInstance} factory method to
+ * Use the {@link AddSkillFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SkillsFragment extends Fragment {
+public class AddSkillFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,11 +31,15 @@ public class SkillsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    SkillAdapter skillAdapter;
 
-    private SkillsInteractionListener mListener;
+    private EditText skillNameEditText;
+    private EditText skillDetailEditText;
+    private Button addSkillBtn;
+    private SkillDB db;
 
-    public SkillsFragment() {
+    private AddSkillInteractionListener mListener;
+
+    public AddSkillFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +49,11 @@ public class SkillsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SkillsFragment.
+     * @return A new instance of fragment AddSkillFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SkillsFragment newInstance(String param1, String param2) {
-        SkillsFragment fragment = new SkillsFragment();
+    public static AddSkillFragment newInstance(String param1, String param2) {
+        AddSkillFragment fragment = new AddSkillFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,32 +68,38 @@ public class SkillsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        db = new SkillDB(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             final Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_skills, container, false);
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add_skill, container, false);
+        skillNameEditText = (EditText) view.findViewById(R.id.skill_name_edit_text);
+        skillDetailEditText = (EditText) view.findViewById(R.id.skill_detail_edit_text);
+        addSkillBtn = (Button) view.findViewById(R.id.save_skill_btn);
 
-        final ListView skillsListView = (ListView) view.findViewById(R.id.skillsListView);
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        addSkillBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                mListener.addSkill();
-            }
-        });
+            public void onClick(View v) {
 
-        skillAdapter = new SkillAdapter(getContext());
-        skillsListView.setAdapter(skillAdapter);
-        skillAdapter.setMode(Attributes.Mode.Single);
+                Skill skill = new Skill();
 
-        skillsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Skill skill = (Skill)skillAdapter.getItem(position);
-                mListener.onSkillSelected(skill.getId());
+                if (skillNameEditText.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Name cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    skill.setName(skillNameEditText.getText().toString());
+                }
+
+                if (skillDetailEditText.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    skill.setDesc(skillDetailEditText.getText().toString());
+                }
+
+                db.insertSkill(skill);
+                Toast.makeText(getContext(), "Skill saved successfully", Toast.LENGTH_LONG).show();
+                mListener.saveSkill();
             }
         });
 
@@ -102,11 +110,11 @@ public class SkillsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof SkillsInteractionListener) {
-            mListener = (SkillsInteractionListener) context;
+        if (context instanceof AddSkillInteractionListener) {
+            mListener = (AddSkillInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement SkillsInteractionListener");
+                    + " must implement AddSkillInteractionListener");
         }
     }
 
@@ -126,13 +134,8 @@ public class SkillsFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface SkillsInteractionListener {
+    public interface AddSkillInteractionListener {
         // TODO: Update argument type and name
-        void onSkillSelected(int position);
-        void addSkill();
-    }
-
-    public SkillAdapter getSkillAdapter() {
-        return skillAdapter;
+        void saveSkill();
     }
 }
